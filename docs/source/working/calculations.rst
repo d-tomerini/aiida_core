@@ -348,102 +348,131 @@ More detailed information about their usage, follows below.
 
 ``parser_name``
 ~~~~~~~~~~~~~~~
+Sets the parser to be used to process the output of the calculation. The ``parser_name`` string has to be a valid entry point
+for the :py:class:`~aiida.parsers.parser.Parser` class.
 
 .. _working_calcjobs_options_input_filename:
 
 ``input_filename``
 ~~~~~~~~~~~~~~~~~~
+Option to change the default name of the input file used by the code to run the calculation.
 
 .. _working_calcjobs_options_output_filename:
 
 ``output_filename``
 ~~~~~~~~~~~~~~~~~~~
+Option to change the default name of the output file of the calculation, that is used to parse the information.
 
 .. _working_calcjobs_options_scheduler_stdout:
 
-``scheduler_stdout``
-~~~~~~~~~~~~~~~~~~~~
+``scheduler_stdout:``
+~~~~~~~~~~~~~~~~~~~~~~
+Option to change the name of the file that contains the standard output of the scheduler.
+
 
 .. _working_calcjobs_options_scheduler_stderr:
 
 ``scheduler_stderr``
 ~~~~~~~~~~~~~~~~~~~~
+Option to change the name of the file that contains the standard error of the scheduler.
 
 .. _working_calcjobs_options_resources:
 
 ``resources``
 ~~~~~~~~~~~~~
+A dictionary containing the computing resources to be used by the scheduler plugin.
+This includes, for example, the number of nodes or the number of cores.
+The available dictionary entries depend on the scheduler used to run the calculation;
+for more information you can check the :ref:`supported scheduler section<my-reference-to-scheduler>`
 
 .. _working_calcjobs_options_max_wallclock_seconds:
 
 ``max_wallclock_seconds``
 ~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. _working_calcjobs_options_custom_scheduler_commands:
-
-``custom_scheduler_commands``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Option to set the maximum time (in seconds) that the scheduler will allocate for the job execution.
 
 .. _working_calcjobs_options_queue_name:
 
 ``queue_name``
 ~~~~~~~~~~~~~~
+Option to set the queue name for the scheduler on the remote computer where the calculation is ran.
 
 .. _working_calcjobs_options_account:
 
 ``account``
 ~~~~~~~~~~~
+Option to set the account to use in the queue on the remote computer.
 
 .. _working_calcjobs_options_qos:
 
 ``qos``
 ~~~~~~~
+Option to set the Quality of Service (QoS) to be employed by the queue on the remote computer.
 
 .. _working_calcjobs_options_computer:
 
 ``computer``
 ~~~~~~~~~~~~
+Option to set the computer to be used in the calculation. The value has to be a
+:py:class:`~aiida.orm.Computer` object.
 
 .. _working_calcjobs_options_withmpi:
 
 ``withmpi``
 ~~~~~~~~~~~
+Boolean option to run the calculation using MPI.
 
 .. _working_calcjobs_options_mpirun_extra_params:
 
 ``mpirun_extra_params``
 ~~~~~~~~~~~~~~~~~~~~~~~
+A list or a tuple of extra parameters to pass to the program (mpirun or other) that handles the parallel execution of the job.
+The parameters will be added *at the end*  of the *mpirun command* defined in the :ref:`computer setup<computer_setup>`.
 
 .. _working_calcjobs_options_import_sys_environment:
 
 ``import_sys_environment``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+Boolean option to load the system variables within the submission script.
 
 .. _working_calcjobs_options_environment_variables:
 
 ``environment_variables``
 ~~~~~~~~~~~~~~~~~~~~~~~~~
+Sets up a dictionary of environment variables to be used in the calculation.
 
 .. _working_calcjobs_options_priority:
 
 ``priority``
 ~~~~~~~~~~~~
+Sets up the priority of the calculation in the queue.
 
 .. _working_calcjobs_options_max_memory_kb:
 
 ``max_memory_kb``
 ~~~~~~~~~~~~~~~~~
+Option to modify the maximum memory (in KiloBytes) to be asked to the scheduler.
 
 .. _working_calcjobs_options_prepend_text:
 
 ``prepend_text``
 ~~~~~~~~~~~~~~~~
+This option defines a calculation-specific (possibly multiline) string that will be added just before
+the code execution in the submission script.
 
 .. _working_calcjobs_options_append_text:
 
 ``append_text``
 ~~~~~~~~~~~~~~~
+This option defines a calculation-specific (possibly multiline) string that will be executed  just after
+the code execution in the submission script.
 
+.. _working_calcjobs_options_custom_scheduler_commands:
+
+``custom_scheduler_commands``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sets a (possibly multiline) string with the commands to set manually for the scheduler. The difference with the
+``prepend_text`` option is that the string is inserted *before* any non-scheduler command.
 
 .. _working_calcjobs_launch:
 
@@ -585,7 +614,7 @@ However, we can give you some guidelines:
 
     *   Store data that you might want to query for, in the lightweight data nodes, such as :py:class:`~aiida.orm.nodes.data.dict.Dict`, :py:class:`~aiida.orm.nodes.data.list.List` and :py:class:`~aiida.orm.nodes.data.structure.StructureData`.
         The contents of these nodes are stored as attributes in the database, which makes sure that they can be queried for.
-    *   Bigger data sets, such as large (multi-dimnensional) arrays, are better stored in an :py:class:`~aiida.orm.nodes.data.array.array.ArrayData` or one of its sub classes.
+    *   Bigger data sets, such as large (multi-dimensional) arrays, are better stored in an :py:class:`~aiida.orm.nodes.data.array.array.ArrayData` or one of its sub classes.
         If you were to store all this data in the database, it would become unnecessarily bloated, because the chances you would have to query for this data are unlikely.
         Instead these array type data nodes store the bulk of their content in the repository.
         This way you still keep the data and therewith the provenance of your calculations, while keeping your database lean and fast!
