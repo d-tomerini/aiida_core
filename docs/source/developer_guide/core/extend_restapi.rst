@@ -249,7 +249,7 @@ Finally, the ``main`` code configures and runs the API, thanks to the method ``r
         load_profile()
         newendpoint()
 
-The `click package <https://click.palletsprojects.com>` is used to provide a a nice command line interface to launch the program, process the options and handle the default values to pass to the ``newendpoint`` function.
+The `click package <https://click.palletsprojects.com>`_ is used to provide a a nice command line interface to launch the program, process the options and handle the default values to pass to the ``newendpoint`` function.
 
 The method ``run_api()`` accomplishes several objectives: it couples the API to an instance of ``flask.Flask``, namely, the Flask fundamental class representing a web app. Consequently, the app is configured and, if required, hooked up.
 The spirit of ``run_api`` is to take all the ingredients to setup an API and use them to build up a command-line utility that serves to hook it up.
